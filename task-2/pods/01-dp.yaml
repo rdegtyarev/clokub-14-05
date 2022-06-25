@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-1
+  labels:
+    role: pod-1
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      role: pod-1
+  template:
+    metadata:
+      labels:
+        role: pod-1
+    spec:
+      containers:
+        - image: praqma/network-multitool:alpine-extra
+          imagePullPolicy: IfNotPresent
+          name: pod-1-app
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      terminationGracePeriodSeconds: 30
